@@ -1,12 +1,17 @@
 class AnswersController < ApplicationController
+  def index
+  end
+
   def create
     @answer = Answer.new(answer_params)
+
     if @answer.save
+      @question = Question.find(params[:question_id])
       flash[:notice] = "Good answer! You are probably correct."
-      redirect_to questions_path
+      redirect_to @question
     else
       flash[:notice] = "Sorry, that didn't work. You broke the computer, you idiot!"
-      render :new
+
     end
   end
 
@@ -20,7 +25,9 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:answer)
+   results =  params.require(:answer).permit( :answer)
+   results[:question_id] = params[:question_id]
+   results
   end
 
 end
