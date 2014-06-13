@@ -4,6 +4,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer = Answer.new(answer_params)
+    @question = Question.find(params[:question_id])
 
     if @answer.save
       @question = Question.find(params[:question_id])
@@ -11,16 +12,9 @@ class AnswersController < ApplicationController
       redirect_to @question
     else
       flash[:notice] = "Sorry, that didn't work. You broke the computer, you idiot!"
-
+      render :new
     end
   end
-
-  def show
-  end
-
-  def new
-  end
-
 
   private
 
@@ -29,5 +23,4 @@ class AnswersController < ApplicationController
    results[:question_id] = params[:question_id]
    results
   end
-
 end
