@@ -1,0 +1,13 @@
+<h1> Question </h1>
+<%= @question.title %>
+<h2> Description </h2>
+<%= @question.description %>
+
+<h3> Answer the question </h3>
+<%= form_for @answer do |f| %>
+  <%= f.label :answer %>
+  <%= f.text_field :answer %><br />
+
+  <%= f.submit %>
+
+<% end %>
